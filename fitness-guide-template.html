@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fitness Индивидуальный Гайд</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cream: #faf8f5;
+    --black: #1a1a1a;
+    --soft-black: #2c2c2c;
+    --border: #d4cec7;
+    --accent: #8b7355;
+    --light-gray: #f0ede8;
+  }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: #e8e4de;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    user-select: none;
+  }
+
+  /* ── SLIDESHOW CONTAINER ── */
+  .slideshow {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+  }
+
+  .slide {
+    display: none;
+    background: var(--cream);
+    border-radius: 2px;
+    min-height: 680px;
+    padding: 36px 32px 40px;
+    position: relative;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+    animation: fadeIn 0.3s ease;
+  }
+
+  .slide.active { display: flex; flex-direction: column; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── LOGO ── */
+  .logo {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .logo-script {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 22px;
+    color: var(--black);
+    letter-spacing: 0.5px;
+  }
+  .logo-block {
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--black);
+  }
+
+  /* ── TYPOGRAPHY ── */
+  .slide-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--black);
+    text-align: center;
+    margin: auto 0;
+    line-height: 1.2;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--black);
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .client-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 60px;
+    font-weight: 300;
+    text-align: center;
+    color: var(--black);
+    line-height: 1;
+    margin: 16px 0 8px;
+  }
+
+  /* ── COVER SLIDE ── */
+  .cover-header {
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  .cover-subtitle {
+    font-size: 11px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--soft-black);
+  }
+  .point-a {
+    text-align: center;
+    margin: 12px 0 20px;
+  }
+  .point-a-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--black);
+    margin-bottom: 6px;
+  }
+  .point-a-stats {
+    font-size: 13px;
+    color: var(--soft-black);
+    line-height: 2;
+    font-weight: 300;
+  }
+  .mood-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4px;
+    height: 130px;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: auto;
+  }
+  .mood-grid .mood-img {
+    background: var(--light-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: var(--accent);
+    text-align: center;
+    letter-spacing: 1px;
+    overflow: hidden;
+  }
+  .mood-grid .mood-img img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* ── PROFILE TABLE ── */
+  .profile-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+  }
+  .profile-table td {
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--soft-black);
+    line-height: 1.4;
+  }
+  .profile-table td:first-child {
+    font-weight: 500;
+    width: 55%;
+    letter-spacing: 0.5px;
+  }
+  .profile-table td:last-child {
+    font-weight: 300;
+    text-align: center;
+  }
+  .flower-decoration {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 40px;
+    opacity: 0.5;
+  }
+
+  /* ── INSTRUCTIONS SLIDE ── */
+  .instructions-body {
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.85;
+    color: var(--soft-black);
+    flex: 1;
+  }
+  .instr-heading {
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--black);
+    margin: 18px 0 6px;
+  }
+  .instr-heading:first-child { margin-top: 0; }
+  .example-block {
+    border-left: 2px solid var(--border);
+    padding-left: 12px;
+    margin: 8px 0;
+    font-style: italic;
+    color: var(--accent);
+  }
+  .important-rule {
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+    margin-top: 14px;
+    font-style: italic;
+    font-size: 12px;
+  }
+  .congrats {
+    margin-top: 16px;
+    font-weight: 500;
+    color: var(--black);
+    font-size: 13px;
+  }
+
+  /* ── PLAN OVERVIEW ── */
+  .weeks-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .week-card {
+    border: 1px solid var(--border);
+    padding: 14px 12px;
+  }
+  .week-card-title {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--black);
+    margin-bottom: 10px;
+  }
+  .week-card-day {
+    font-size: 12px;
+    color: var(--soft-black);
+    font-weight: 300;
+    padding: 3px 0;
+    border-bottom: 1px solid var(--light-gray);
+  }
+  .week-card-day:last-child { border-bottom: none; }
+  .rules-section { margin-top: 4px; }
+  .rules-title {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: underline;
+    color: var(--black);
+    margin-bottom: 8px;
+  }
+  .rules-subtitle {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-style: italic;
+    color: var(--black);
+    margin: 10px 0 4px;
+    text-align: center;
+  }
+  .rules-list {
+    list-style: none;
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--soft-black);
+    line-height: 1.8;
+  }
+  .rules-list li::before {
+    content: counter(item) ". ";
+    counter-increment: item;
+    font-weight: 400;
+  }
+  .rules-list { counter-reset: item; }
+
+  /* ── WEEK DIVIDER ── */
+  .week-divider {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .week-divider-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--black);
+    text-align: center;
+    line-height: 1.1;
+  }
+  .week-divider-line {
+    width: 60px;
+    height: 1px;
+    background: var(--border);
+    margin: 20px auto;
+  }
+
+  /* ── EXERCISE SLIDE ── */
+  .day-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--black);
+    text-align: center;
+    margin-bottom: 14px;
+  }
+  .exercise-name-box {
+    border: 1px solid var(--black);
+    padding: 12px 16px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: var(--black);
+    margin-bottom: 16px;
+  }
+  .video-container {
+    position: relative;
+    background: #111;
+    border-radius: 2px;
+    overflow: hidden;
+    aspect-ratio: 9/11;
+    max-height: 380px;
+    cursor: pointer;
+    flex: 1;
+  }
+  .video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .video-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #1a1a1a;
+    color: #fff;
+    gap: 12px;
+  }
+  .play-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    backdrop-filter: blur(4px);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+  .play-btn:hover {
+    background: rgba(255,255,255,0.25);
+    border-color: white;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+  .play-btn svg { fill: white; margin-left: 4px; }
+  .video-note {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--soft-black);
+    text-align: center;
+    margin-top: 10px;
+    letter-spacing: 1px;
+    font-style: italic;
+  }
+  .video-upload-hint {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  /* ── NAVIGATION ── */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+    max-width: 480px;
+    width: 100%;
+  }
+  .nav-btn {
+    background: var(--black);
+    color: white;
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+  .nav-btn:hover { opacity: 0.75; transform: scale(1.05); }
+  .nav-btn:disabled { opacity: 0.2; cursor: default; transform: none; }
+  .slide-counter {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--soft-black);
+    font-weight: 300;
+  }
+  .progress-bar {
+    width: 100%;
+    max-width: 480px;
+    height: 2px;
+    background: rgba(0,0,0,0.1);
+    margin-top: 10px;
+    border-radius: 2px;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--black);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+
+  /* ── KEYBOARD HINT ── */
+  .hint {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: rgba(0,0,0,0.3);
+    text-transform: uppercase;
+    margin-top: 10px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════ SLIDES ════════════════════════════ -->
+
+<!-- SLIDE 1: COVER -->
+<div class="slideshow">
+
+<div class="slide active">
+  <div class="logo"><span class="logo-script">Fitness</span><span class="logo-block">Planner</span></div>
+  <div class="cover-header">
+    <div class="cover-subtitle">Индивидуальный гайд</div>
+  </div>
+  <div class="client-name">Саида</div>
+  <div class="point-a">
+    <div class="point-a-label">Точка А:</div>
+    <div class="point-a-stats">
+      1. Вес: 70 кг<br>
+      2. Рост: 168 см<br>
+      3. Замеры: 96, 82, 104
+    </div>
+  </div>
+  <div class="mood-grid">
+    <!-- Replace src with your actual mood board images -->
+    <div class="mood-img"><span style="font-size:9px;padding:4px;">📷 фото 1</span></div>
+    <div class="mood-img"><span style="font-size:9px;padding:4px;">📷 фото 2</span></div>
+    <div class="mood-img"><span style="font-size:9px;padding:4px;">📷 фото 3</span></div>
+  </div>
+</div>
+
+<!-- SLIDE 2: CLIENT PROFILE -->
+<div class="slide">
+  <div class="logo"><span class="logo-script">Fitness</span><span class="logo-block">Planner</span></div>
+  <div class="section-title">Профиль Саиды</div>
+  <table class="profile-table">
+    <tr><td>Цель</td><td>Похудение<br>(дефицит калорий)</td></tr>
+    <tr><td>Продолжительность</td><td>4 недели</td></tr>
+    <tr><td># Тренировок в неделю</td><td>3</td></tr>
+    <tr><td># Минут на 1 тренировку</td><td>50</td></tr>
+    <tr><td>Опыт в зале</td><td>2 месяца</td></tr>
+  </table>
+  <div class="flower-decoration">🌸</div>
+</div>
+
+<!-- SLIDE 3: INSTRUCTIONS -->
+<div class="slide">
+  <div class="logo"><span class="logo-script">Fitness</span><span class="logo-block">Planner</span></div>
+  <div style="text-align:center;font-size:14px;font-weight:400;margin-bottom:14px;">Привет! Прежде чем начать, прочитай это 🤍</div>
+  <div class="instructions-body">
+    <div class="instr-heading">Что такое подход и повторение?</div>
+    Повторение — это 1 раз выполнить упражнение<br>
+    Подход — это сколько раз ты делаешь эти повторения
+    <div class="example-block">
+      <strong>Пример:</strong> «Жим ногами 3 × 15» означает:<br>
+      ты жмёшь 15 раз → отдыхаешь → ещё 15 раз → отдыхаешь → ещё 15 раз. Всё!
+    </div>
+
+    <div class="instr-heading">Сколько отдыхать между подходами?</div>
+    60–90 секунд — это норма<br>
+    <em>Можно по ощущениям — но главное не сидеть 5 минут!</em>
+
+    <div class="instr-heading">Какой вес выбрать?</div>
+    Выбирай такой вес, чтобы последние 2–3 повторения давались <em>тяжело</em>, но ты всё ещё делала правильно.<br>
+    Если легко — увеличь вес. Если не можешь закончить подход — уменьши.
+
+    <div class="important-rule">
+      <strong>! Главное правило:</strong> лучше лёгкий вес и правильная техника, чем тяжёлый вес и травма.<br>
+      *в каждом зале есть дежурный тренер — если что-то непонятно, обращайтесь к нему.
+    </div>
+    <div class="congrats">Поздравляю! Теперь вы — абсолютно готовы к становлению лучшей версией себя.</div>
+  </div>
+</div>
+
+<!-- SLIDE 4: PLAN OVERVIEW -->
+<div class="slide">
+  <div class="logo"><span class="logo-script">Fitness</span><span class="logo-block">Planner</span></div>
+  <div class="section-title">Обзор Плана</div>
+  <div class="weeks-grid">
+    <div class="week-card">
+      <div class="week-card-title">Неделя №1</div>
+      <div class="week-card-day">День 1: Фулл-бади</div>
+      <div class="week-card-day">День 2: Фулл-бади</div>
+      <div class="week-card-day">День 3: Фулл-бади</div>
+    </div>
+    <div class="week-card">
+      <div class="week-card-title">Неделя №2</div>
+      <div class="week-card-day">День 1: Фулл-бади</div>
+      <div class="week-card-day">День 2: Фулл-бади</div>
+      <div class="week-card-day">День 3: Фулл-бади</div>
+    </div>
+    <div class="week-card">
+      <div class="week-card-title">Неделя №3</div>
+      <div class="week-card-day">День 1: Низ</div>
+      <div class="week-card-day">День 2: Верх</div>
+      <div class="week-card-day">День 3: Низ</div>
+    </div>
+    <div class="week-card">
+      <div class="week-card-title">Неделя №4</div>
+      <div class="week-card-day">День 1: Низ</div>
+      <div class="week-card-day">День 2: Верх</div>
+      <div class="week-card-day">День 3: Низ</div>
+    </div>
+  </div>
+  <div class="rules-section">
+    <div class="rules-title">Важно</div>
+    <div class="rules-subtitle">До тренировки</div>
+    <ul class="rules-list">
+      <li>Ходьба в дорожке 5 мин (скорость 5.0 / наклон 5.0)</li>
+      <li>Поешь за 1–1.5 часа до</li>
+      <li>Разминка всего тела</li>
+    </ul>
+    <div class="rules-subtitle">Во время тренировки: пить воду глотками</div>
+    <div class="rules-subtitle">После тренировки</div>
+    <ul class="rules-list">
+      <li>Кардио 15 минут (дорожка скорость 5.0 / наклон 5.0) — если есть время</li>
+      <li>Поешь в течение 1 часа</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SLIDE 5: WEEK 1–2 DIVIDER -->
+<div class="slide">
+  <div class="logo"><span class="logo-script">Fitness</span><span class="logo-block">Planner</span></div>
+  <div class="week-divider">
+    <div class="week-divider-line"></div>
+    <div class="week-divider-title">Недели<br>№1 &amp; №2</div>
+    <div class="week-divider-line"></div>
+  </div>
+</div>
+
+<!-- SLIDE 6: EXERCISE — Сгибание ног сидя (Weeks 1–2, Day 1) -->
+<div class="slide">
+  <div class="logo"><span class="logo-script">Fitness</span><span class="logo-block">Planner</span></div>
+  <div class="day-label">День 1 – Фулл-бади</div>
+  <div class="exercise-name-box">Сгибание ног сидя на тренажере 3х15</div>
+  <div class="video-container" id="vc-1">
+    <!-- To add your video: replace the placeholder below with:
+         <video src="your-video-file.mp4" controls playsinline></video>
+         and remove the placeholder div -->
+    <div class="video-placeholder">
+      <div class="video-upload-hint">Вставьте видео здесь</div>
+    </div>
+    <div class="play-btn" onclick="playVideo('vc-1')">
+      <svg width="18" height="18" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    </div>
+  </div>
+  <div class="video-note">(контролируй движение — не бросай вес)</div>
+</div>
+
+<!-- SLIDE 7: EXERCISE — Жим ногами -->
+<div class="slide">
+  <div class="logo"><span class="logo-script">Fitness</span><span class="logo-block">Planner</span></div>
+  <div class="day-label">День 1 – Фулл-бади</div>
+  <div class="exercise-name-box">Жим ногами в тренажёре 3х12</div>
+  <div class="video-container" id="vc-2">
+    <div class="video-placeholder">
+      <div class="video-upload-hint">Вставьте видео здесь</div>
+    </div>
+    <div class="play-btn" onclick="playVideo('vc-2')">
+      <svg width="18" height="18" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8: WEEK 3–4 DIVIDER -->
+<div class="slide">
+  <div class="logo"><span class="logo-script">Fitness</span><span class="logo-block">Planner</span></div>
+  <div class="week-divider">
+    <div class="week-divider-line"></div>
+    <div class="week-divider-title">Недели<br>№3 &amp; №4</div>
+    <div class="week-divider-line"></div>
+  </div>
+</div>
+
+<!-- SLIDE 9: EXERCISE — Ягодичный мостик -->
+<div class="slide">
+  <div class="logo"><span class="logo-script">Fitness</span><span class="logo-block">Planner</span></div>
+  <div class="day-label">День 1 – Низ (Ягодицы &amp; Бёдра)</div>
+  <div class="exercise-name-box">Ягодичный мостик с гантелей 3х15</div>
+  <div class="video-container" id="vc-3">
+    <div class="video-placeholder">
+      <div class="video-upload-hint">Вставьте видео здесь</div>
+    </div>
+    <div class="play-btn" onclick="playVideo('vc-3')">
+      <svg width="18" height="18" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    </div>
+  </div>
+  <div class="video-note">(ноги на ширине плеч)</div>
+</div>
+
+<!-- ADD MORE EXERCISE SLIDES BY COPYING THE PATTERN ABOVE -->
+
+</div><!-- end slideshow -->
+
+<!-- ── NAVIGATION ── -->
+<div class="nav">
+  <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>←</button>
+  <span class="slide-counter" id="counter">1 / 9</span>
+  <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">→</button>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+<div class="hint">← → стрелки на клавиатуре для навигации</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+  const total = slides.length;
+
+  function updateUI() {
+    slides.forEach((s, i) => s.classList.toggle('active', i === current));
+    document.getElementById('prevBtn').disabled = current === 0;
+    document.getElementById('nextBtn').disabled = current === total - 1;
+    document.getElementById('counter').textContent = `${current + 1} / ${total}`;
+    document.getElementById('progress').style.width = `${((current + 1) / total) * 100}%`;
+  }
+
+  function changeSlide(dir) {
+    const next = current + dir;
+    if (next >= 0 && next < total) { current = next; updateUI(); }
+  }
+
+  function playVideo(containerId) {
+    const container = document.getElementById(containerId);
+    const video = container.querySelector('video');
+    const btn = container.querySelector('.play-btn');
+    if (video) {
+      if (video.paused) { video.play(); btn.style.display = 'none'; }
+      else { video.pause(); btn.style.display = 'flex'; }
+    }
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   changeSlide(-1);
+  });
+
+  // Touch/swipe support
+  let touchStartX = 0;
+  document.querySelector('.slideshow').addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+  });
+  document.querySelector('.slideshow').addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) changeSlide(diff > 0 ? 1 : -1);
+  });
+
+  updateUI();
+</script>
+</body>
+</html>
